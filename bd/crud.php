@@ -1,9 +1,8 @@
 <?php
-try {
-    $connect = pg_connect("host=localhost dbname=sismed911 user=postgres password=root");
-} catch (Exception $e) {
-    die("El error de Conexión es: " . $e->getMessage());
-}
+include_once 'connection.php';
+
+$connection = new connection();
+$connect = $connection->connect();
 
 $id_maestro = (isset($_POST['idM'])) ? $_POST['idM'] : '';
 $id_paciente = (isset($_POST['idP'])) ? $_POST['idP'] : '';
@@ -13,7 +12,7 @@ $field = (isset($_POST['field'])) ? $_POST['field'] : '';
 $setField = (isset($_POST['setField'])) ? $_POST['setField'] : '';
 
 switch ($option) {
-    case 'select':
+    case 'selectPrehMaestro':
         $sql = "SELECT *, preh_maestro.direccion as direccion_maestro, preh_maestro.telefono as telefono_maestro, preh_maestro.observacion as observacion_maestro, incidentes.nombre_es as nombre_incidente, pacientegeneral.direccion as direccion_paciente, pacientegeneral.telefono as telefono_paciente, pacientegeneral.observacion as observacion_paciente, tipo_id.descripcion as ide_descripcion, cie10.diagnostico as cie10_diagnostico
         FROM preh_maestro
         LEFT JOIN pacientegeneral ON preh_maestro.cod_casopreh = pacientegeneral.cod_casointerh
@@ -26,7 +25,7 @@ switch ($option) {
         LEFT JOIN triage ON preh_evaluacionclinica.triage = triage.id_triage
         WHERE pacientegeneral.prehospitalario = '1' 
         ORDER BY preh_maestro.cod_casopreh ASC";
-        $result = pg_query($connect, $sql);
+        $result = $connection->execute($connect, $sql);
         if (!$result) {
             echo "An error occurred.\n";
             exit;
@@ -34,9 +33,41 @@ switch ($option) {
         $data = pg_fetch_all($result);
         print json_encode($data, JSON_UNESCAPED_UNICODE);
         break;
+    case 'selectInterhMaestro':
+        $sql = "SELECT *, pacientegeneral.direccion as direccion_paciente, pacientegeneral.telefono as telefono_paciente, pacientegeneral.observacion as observacion_paciente, tipo_id.descripcion as ide_descripcion, cie10.diagnostico as cie10_diagnostico
+            FROM interh_maestro 
+            INNER JOIN interh_tiposervicio ON interh_maestro.tipo_serviciointerh = interh_tiposervicio.id_tiposervicion
+            INNER JOIN hospitalesgeneral ON interh_maestro.hospital_origneinterh = hospitalesgeneral.id_hospital
+            INNER JOIN interh_accion ON interh_maestro.accioninterh = interh_accion.id_accion
+            INNER JOIN pacientegeneral ON interh_maestro.cod_casointerh = pacientegeneral.cod_casointerh
+            INNER JOIN tipo_id ON pacientegeneral.tipo_doc = tipo_id.id_tipo
+            INNER JOIN tipo_edad ON pacientegeneral.cod_edad = tipo_edad.id_edad
+            INNER JOIN interh_evaluacionclinica ON interh_maestro.cod_casointerh = interh_evaluacionclinica.cod_casointerh
+            INNER JOIN cie10 ON interh_evaluacionclinica.cod_diag_cie = cie10.codigo_cie
+            INNER JOIN triage ON interh_evaluacionclinica.triage = triage.id_triage
+            WHERE pacientegeneral.prehospitalario = '0'
+            ORDER BY interh_maestro.cod_casointerh";
+        $result = $connection->execute($connect, $sql);
+        if (!$result) {
+            echo "An error occurred.\n";
+            exit;
+        }
+        $data = pg_fetch_all($result);
+        foreach ($data as &$valor) {
+            $sql = "SELECT nombre_hospital FROM hospitalesgeneral WHERE id_hospital='" . $valor['hospital_destinointerh'] . "'";
+            $res = $connection->execute($connect, $sql);
+            if (!$res) {
+                echo "An error occurred.\n";
+                exit;
+            }
+            $dat = pg_fetch_array($res, 0, PGSQL_NUM);
+            $valor['nombre_hospital_destino'] = $dat[0];
+        }
+        print json_encode($data, JSON_UNESCAPED_UNICODE);
+        break;
     case 'selectCIE10':
         $sql = "SELECT * FROM cie10 ORDER BY codigo_cie ASC";
-        $result = pg_query($connect, $sql);
+        $result = $connection->execute($connect, $sql);
         if (!$result) {
             echo "An error occurred.\n";
             exit;
@@ -46,7 +77,7 @@ switch ($option) {
         break;
     case 'selectIDE':
         $sql = "SELECT * FROM tipo_id ORDER BY id_tipo ASC";
-        $result = pg_query($connect, $sql);
+        $result = $connection->execute($connect, $sql);
         if (!$result) {
             echo "An error occurred.\n";
             exit;
@@ -56,7 +87,7 @@ switch ($option) {
         break;
     case 'selectTriage':
         $sql = "SELECT * FROM triage ORDER BY id_triage ASC";
-        $result = pg_query($connect, $sql);
+        $result = $connection->execute($connect, $sql);
         if (!$result) {
             echo "An error occurred.\n";
             exit;
@@ -66,7 +97,7 @@ switch ($option) {
         break;
     case 'selectHosp':
         $sql = "SELECT * FROM hospitalesgeneral ORDER BY id_hospital ASC";
-        $result = pg_query($connect, $sql);
+        $result = $connection->execute($connect, $sql);
         if (!$result) {
             echo "An error occurred.\n";
             exit;
@@ -76,7 +107,7 @@ switch ($option) {
         break;
     case 'selectCierre':
         $sql = "SELECT * FROM tipo_cierrecaso ORDER BY id_tranlado_fallido ASC";
-        $result = pg_query($connect, $sql);
+        $result = $connection->execute($connect, $sql);
         if (!$result) {
             echo "An error occurred.\n";
             exit;
@@ -86,7 +117,7 @@ switch ($option) {
         break;
     case 'selectSeguim':
         $sql = "SELECT * FROM preh_seguimiento ORDER BY id_seguimiento ASC";
-        $result = pg_query($connect, $sql);
+        $result = $connection->execute($connect, $sql);
         if (!$result) {
             echo "An error occurred.\n";
             exit;
@@ -94,18 +125,10 @@ switch ($option) {
         $data = pg_fetch_all($result);
         print json_encode($data, JSON_UNESCAPED_UNICODE);
         break;
-    case 'updateM':
-        $sql = "UPDATE preh_maestro SET " . $field . "='" . $setField . "' WHERE cod_casopreh=" . $id_maestro;
-        $result = pg_query($connect, $sql);
-        if (!$result) {
-            echo "An error occurred.\n";
-            exit;
-        }
-        echo $result;
-        break;
-    case 'cerrarCaso':
-        $sql = "UPDATE preh_maestro SET estado=0, cierre=" . $setField . " WHERE cod_casopreh=" . $id_maestro;
-        $result = pg_query($connect, $sql);
+    case 'updatePrehM':
+    case 'updateInterhM':
+        $option == 'updatePrehM' ? $sql = "UPDATE preh_maestro SET " . $field . "='" . $setField . "' WHERE cod_casopreh=" . $id_maestro : $sql = "UPDATE interh_maestro SET " . $field . "='" . $setField . "' WHERE cod_casointerh=" . $id_maestro;
+        $result = $connection->execute($connect, $sql);
         if (!$result) {
             echo "An error occurred.\n";
             exit;
@@ -115,7 +138,7 @@ switch ($option) {
     case 'updateP':
         if ($field == 'tipo_doc') {
             $sql = "SELECT id_tipo FROM tipo_id WHERE descripcion='" . $setField . "';";
-            $result = pg_query($connect, $sql);
+            $result = $connection->execute($connect, $sql);
             if (!$result) {
                 echo "An error occurred.\n";
                 exit;
@@ -124,17 +147,18 @@ switch ($option) {
             $setField = $data[0]['id_tipo'];
         }
         $sql = "UPDATE pacientegeneral SET " . $field . "='" . $setField . "' WHERE id_paciente=" . $id_paciente;
-        $result = pg_query($connect, $sql);
+        $result = $connection->execute($connect, $sql);
         if (!$result) {
             echo "An error occurred.\n";
             exit;
         }
         echo $result;
         break;
-    case 'updateEC':
+    case 'updatePrehEC':
+    case 'updateInterhEC':
         if ($field == 'triage') {
             $sql = "SELECT id_triage FROM triage WHERE nombre_triage_es='" . $setField . "';";
-            $result = pg_query($connect, $sql);
+            $result = $connection->execute($connect, $sql);
             if (!$result) {
                 echo "An error occurred.\n";
                 exit;
@@ -142,37 +166,44 @@ switch ($option) {
             $data = pg_fetch_all($result);
             $setField = $data[0]['id_triage'];
         }
-        $sql = "UPDATE preh_evaluacionclinica SET " . $field . "='" . $setField . "' WHERE id_evaluacionclinica=" . $id_evalC;
-        $result = pg_query($connect, $sql);
+        $option == 'updatePrehEC' ? $sql = "UPDATE preh_evaluacionclinica SET " . $field . "='" . $setField . "' WHERE id_evaluacionclinica=" . $id_evalC : $sql = "UPDATE interh_evaluacionclinica SET " . $field . "='" . $setField . "' WHERE id_evaluacionclinica=" . $id_evalC;;
+        $result = $connection->execute($connect, $sql);
         if (!$result) {
             echo "An error occurred.\n";
             exit;
         }
         echo $result;
         break;
-    case 'updateSeguim':
-        $sql = "SELECT id_seguimiento FROM preh_seguimiento WHERE cod_casopreh=" . $id_maestro;
-        $result = pg_query($connect, $sql);
+    case 'updatePrehSeguim':
+    case 'updateInterhSeguim':
+        $option == 'updatePrehSeguim' ? $sql = "SELECT id_seguimiento FROM preh_seguimiento WHERE cod_casopreh=" . $id_maestro : $sql = "SELECT id_seguimiento FROM interh_seguimiento WHERE cod_casointerh=" . $id_maestro;
+        $result = $connection->execute($connect, $sql);
         if (!$result) {
             echo "An error occurred.\n";
             exit;
         }
         $data = pg_fetch_all($result);
-        !$data ? $sql = "INSERT INTO preh_seguimiento (cod_casopreh, seguimento, fecha_seguimento) VALUES (" . $id_maestro . ", '" . $setField . "', '" . date("Y-m-d H:i:s") . "');" : $sql = "UPDATE preh_seguimiento SET " . $field . "='" . $setField . "' WHERE cod_casopreh=" . $id_maestro;
-        $result = pg_query($connect, $sql);
+        if ($option == 'updatePrehSeguim') {
+            !$data ? $sql = "INSERT INTO preh_seguimiento (cod_casopreh, seguimento, fecha_seguimento) VALUES (" . $id_maestro . ", '" . $setField . "', '" . date("Y-m-d H:i:s") . "');" : $sql = "UPDATE preh_seguimiento SET " . $field . "='" . $setField . "' WHERE cod_casopreh=" . $id_maestro;
+        } else {
+            !$data ? $sql = "INSERT INTO interh_seguimiento (cod_casointerh, seguimento, fecha_seguimento) VALUES (" . $id_maestro . ", '" . $setField . "', '" . date("Y-m-d H:i:s") . "');" : $sql = "UPDATE interh_seguimiento SET " . $field . "='" . $setField . "' WHERE cod_casointerh=" . $id_maestro;
+        }
+        $result = $connection->execute($connect, $sql);
         if (!$result) {
             echo "An error occurred.\n";
             exit;
         }
         echo $result;
         break;
-    case 'delete':
-        $sql = "DELETE FROM usuario WHERE id='$userId'";
-        $result = pg_query($connect, $sql);
+    case 'cerrarPrehCaso':
+    case 'cerrarInterhCaso':
+        $option == 'cerrarPrehCaso' ? $sql = "UPDATE preh_maestro SET estado=0, cierre=" . $setField . " WHERE cod_casopreh=" . $id_maestro : $sql = "UPDATE interh_maestro SET estado=0, cierre=" . $setField . " WHERE cod_casointerh=" . $id_maestro;
+        $result = $connection->execute($connect, $sql);
         if (!$result) {
             echo "An error occurred.\n";
             exit;
         }
+        echo $result;
         break;
 }
 
