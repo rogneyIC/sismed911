@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(function () {
     var id_maestro, id_paciente, id_evalC, focus_value, dataSelect;
 
     var tableMaestro = $('#tableMaestro').DataTable({
@@ -55,13 +55,17 @@ $(document).ready(function () {
                 "render": function (data, type, row) {
                     var diff = Math.abs(new Date() - new Date(row.fecha));
                     var minutes = Math.floor((diff / 1000) / 60);
-                    return minutes;
+                    return '<i class="fa fa-clock-o" aria-hidden="true"></i> ' + minutes + ' MIN';
                 },
                 "targets": 2
             }
         ],
         //rowId: 'extn',
         dom: 'Bfrtip'
+    });
+
+    tableMaestro.on('draw', function () {
+        $('.fa-clock-o').parent().css('color', 'red');
     });
 
     tableMaestro.on('select', function (e, dt, type, indexes) {
@@ -167,9 +171,7 @@ $(document).ready(function () {
             $('#hosp_nomMed').val(dataSelect[0].nombre_medico);
             $('#hosp_telMed').val(dataSelect[0].telefono_maestro);
 
-            $('fieldset').prop('disabled', false);
-            $('.cie10_search').prop('disabled', false);
-            $('.hosp_search').prop('disabled', false);
+            $('#collapseOne').collapse('show');
         }
     });
 

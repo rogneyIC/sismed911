@@ -65,6 +65,21 @@ switch ($option) {
         }
         print json_encode($data, JSON_UNESCAPED_UNICODE);
         break;
+    case 'selectServiceAmb':
+        $sql = "SELECT * FROM servicio_ambulancia
+            INNER JOIN preh_maestro ON servicio_ambulancia.cod_casointerh = preh_maestro.cod_casopreh
+            INNER JOIN ambulancias ON servicio_ambulancia.cod_ambulancia = ambulancias.cod_ambulancias
+            INNER JOIN incidentes ON preh_maestro.incidente = incidentes.id_incidente
+            WHERE ambulancias.estado = 0
+            ORDER BY cod_casointerh ASC";
+        $result = $connection->execute($connect, $sql);
+        if (!$result) {
+            echo "An error occurred.\n";
+            exit;
+        }
+        $data = pg_fetch_all($result);
+        print json_encode($data, JSON_UNESCAPED_UNICODE);
+        break;
     case 'selectCIE10':
         $sql = "SELECT * FROM cie10 ORDER BY codigo_cie ASC";
         $result = $connection->execute($connect, $sql);

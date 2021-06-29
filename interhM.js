@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(function () {
     var id_maestro_interh, id_paciente_interh, id_eval_interh, focus_value_interh, dataSelect_interh;
 
     var tableMaestroInterh = $('#tableMaestroInterh').DataTable({
@@ -51,13 +51,17 @@ $(document).ready(function () {
                 "render": function (data, type, row) {
                     var diff = Math.abs(new Date() - new Date(row.fechahorainterh));
                     var minutes = Math.floor((diff / 1000) / 60);
-                    return minutes;
+                    return '<i class="fa fa-clock-o" aria-hidden="true"></i> ' + minutes + ' MIN';
                 },
                 "targets": 2
             }
         ],
         //rowId: 'extn',
         dom: 'Bfrtip'
+    });
+
+    tableMaestroInterh.on('draw', function () {
+        $('.fa-clock-o').parent().css('color', 'red');
     });
 
     tableMaestroInterh.on('select', function (e, dt, type, indexes) {
@@ -163,9 +167,7 @@ $(document).ready(function () {
             $('#hosp_nomMed').val(dataSelect_interh[0].nombre_medico);
             $('#hosp_telMed').val(dataSelect_interh[0].telefono_maestro);
 
-            $('fieldset').prop('disabled', false);
-            $('.cie10_search').prop('disabled', false);
-            $('.hosp_search').prop('disabled', false);
+            $('#collapseOne').collapse('show');
         }
     });
 

@@ -8,10 +8,18 @@ body {
   padding-top: 10px;
 }
 
+tbody tr:hover {
+  cursor: pointer;
+}
+
 .tab-content {
   padding: 20px;
 }
 
 .not-allowed {
   cursor: not-allowed;
+}
+
+.accordionForms {
+  padding: 20px 0;
 }
