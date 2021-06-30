@@ -66,10 +66,10 @@ switch ($option) {
         print json_encode($data, JSON_UNESCAPED_UNICODE);
         break;
     case 'selectServiceAmb':
-        $sql = "SELECT * FROM servicio_ambulancia
-            INNER JOIN preh_maestro ON servicio_ambulancia.cod_casointerh = preh_maestro.cod_casopreh
-            INNER JOIN ambulancias ON servicio_ambulancia.cod_ambulancia = ambulancias.cod_ambulancias
-            INNER JOIN incidentes ON preh_maestro.incidente = incidentes.id_incidente
+        $sql = "SELECT * FROM preh_maestro
+            LEFT JOIN servicio_ambulancia ON preh_maestro.cod_casopreh = servicio_ambulancia.cod_casointerh
+            LEFT JOIN ambulancias ON servicio_ambulancia.cod_ambulancia = ambulancias.cod_ambulancias
+            LEFT JOIN incidentes ON preh_maestro.incidente = incidentes.id_incidente
             WHERE ambulancias.estado = 0
             ORDER BY cod_casointerh ASC";
         $result = $connection->execute($connect, $sql);
@@ -213,6 +213,15 @@ switch ($option) {
     case 'cerrarPrehCaso':
     case 'cerrarInterhCaso':
         $option == 'cerrarPrehCaso' ? $sql = "UPDATE preh_maestro SET estado=0, cierre=" . $setField . " WHERE cod_casopreh=" . $id_maestro : $sql = "UPDATE interh_maestro SET estado=0, cierre=" . $setField . " WHERE cod_casointerh=" . $id_maestro;
+        $result = $connection->execute($connect, $sql);
+        if (!$result) {
+            echo "An error occurred.\n";
+            exit;
+        }
+        echo $result;
+        break;
+    case 'updateSA':
+        $sql = "UPDATE servicio_ambulancia SET " . $field . "='" . $setField . "' WHERE cod_casointerh=" . $id_maestro;
         $result = $connection->execute($connect, $sql);
         if (!$result) {
             echo "An error occurred.\n";

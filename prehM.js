@@ -245,29 +245,24 @@ $(function () {
         focus_value = $(this).val();
     });
 
-    $("#p_ide").on('change', function () {
-        var val = $('#p_ide option:selected').text();
-        crud_ajax('tipo_doc', val, 'updateP');
+    $("#p_ide").on('change', function () {        
+        crud_ajax('tipo_doc', $('#p_ide option:selected').text(), 'updateP');
     });
 
     $("#p_number").focusout(function () {
-        var val = $(this).val();
-        crud_ajax('num_doc', val, 'updateP');
+        crud_ajax('num_doc', $(this).val(), 'updateP');
     });
 
     $("#p_exp").focusout(function () {
-        var val = $(this).val();
-        crud_ajax('expendiente', val, 'updateP');
+        crud_ajax('expendiente', $(this).val(), 'updateP');
     });
 
     $("#p_date").focusout(function () {
-        var val = $(this).val();
-        crud_ajax('fecha_nacido', val, 'updateP');
+        crud_ajax('fecha_nacido', $(this).val(), 'updateP');
     });
 
     $("#p_age").focusout(function () {
-        var val = $(this).val();
-        crud_ajax('edad', val, 'updateP');
+        crud_ajax('edad', $(this).val(), 'updateP');
     });
 
     $(".gender").on('click', function () {
@@ -278,43 +273,36 @@ $(function () {
     });
 
     $("#p_phone").focusout(function () {
-        var val = $(this).val();
-        crud_ajax('telefono', val, 'updateP');
+        crud_ajax('telefono', $(this).val(), 'updateP');
     });
 
     $("#p_name1").focusout(function () {
-        var val = $(this).val();
-        crud_ajax('nombre1', val, 'updateP');
+        crud_ajax('nombre1', $(this).val(), 'updateP');
     });
 
     $("#p_name2").focusout(function () {
-        var val = $(this).val();
-        crud_ajax('nombre2', val, 'updateP');
+        crud_ajax('nombre2', $(this).val(), 'updateP');
     });
 
     $("#p_lastname1").focusout(function () {
-        var val = $(this).val();
-        crud_ajax('apellido1', val, 'updateP');
+        crud_ajax('apellido1', $(this).val(), 'updateP');
     });
 
     $("#p_lastname2").focusout(function () {
-        var val = $(this).val();
-        crud_ajax('apellido2', val, 'updateP');
+        crud_ajax('apellido2', $(this).val(), 'updateP');
     });
 
     $("#p_segS").focusout(function () {
-        var val = $(this).val();
-        crud_ajax('aseguradro', val, 'updateP');
+
+        crud_ajax('aseguradro', $(this).val(), 'updateP');
     });
 
     $("#p_address").focusout(function () {
-        var val = $(this).val();
-        crud_ajax('direccion', val, 'updateP');
+        crud_ajax('direccion', $(this).val(), 'updateP');
     });
 
     $("#p_obs").focusout(function () {
-        var val = $(this).val();
-        crud_ajax('observacion', val, 'updateP');
+        crud_ajax('observacion', $(this).val(), 'updateP');
     });
 
     //formulario evaluación clínica
@@ -379,83 +367,67 @@ $(function () {
     });
 
     $("#ec_triage").on('change', function () {
-        var val = $('#ec_triage option:selected').text();
-        crud_ajax('triage', val, 'updatePrehEC');
+        crud_ajax('triage', $('#ec_triage option:selected').text(), 'updatePrehEC');
     });
 
     $("#ec_ta").focusout(function () {
-        var val = $(this).val();
-        crud_ajax('sv_tx', val, 'updatePrehEC');
+        crud_ajax('sv_tx', $(this).val(), 'updatePrehEC');
     });
 
     $("#ec_fc").focusout(function () {
-        var val = $(this).val();
-        crud_ajax('sv_fc', val, 'updatePrehEC');
+        crud_ajax('sv_fc', $(this).val(), 'updatePrehEC');
     });
 
     $("#ec_fr").focusout(function () {
-        var val = $(this).val();
-        crud_ajax('sv_fr', val, 'updatePrehEC');
+        crud_ajax('sv_fr', $(this).val(), 'updatePrehEC');
     });
 
     $("#ec_temp").focusout(function () {
-        var val = $(this).val();
-        crud_ajax('sv_temp', val, 'updatePrehEC');
+        crud_ajax('sv_temp', $(this).val(), 'updatePrehEC');
     });
 
     $("#ec_gl").focusout(function () {
-        var val = $(this).val();
-        crud_ajax('sv_gl', val, 'updatePrehEC');
+        crud_ajax('sv_gl', $(this).val(), 'updatePrehEC');
     });
 
     $("#ec_sato2").focusout(function () {
-        var val = $(this).val();
-        crud_ajax('sv_sato2', val, 'updatePrehEC');
+        crud_ajax('sv_sato2', $(this).val(), 'updatePrehEC');
     });
 
     $("#ec_gli").focusout(function () {
-        var val = $(this).val();
-        crud_ajax('sv_gli', val, 'updatePrehEC');
+        crud_ajax('sv_gli', $(this).val(), 'updatePrehEC');
     });
 
     $("#ec_talla").focusout(function () {
-        var val = $(this).val();
-        crud_ajax('talla', val, 'updatePrehEC');
+        crud_ajax('talla', $(this).val(), 'updatePrehEC');
     });
 
     $("#ec_peso").focusout(function () {
-        var val = $(this).val();
-        crud_ajax('peso', val, 'updatePrehEC');
+        crud_ajax('peso', $(this).val(), 'updatePrehEC');
     });
 
     $("#ec_cuadro").focusout(function () {
-        var val = $(this).val();
-        crud_ajax('c_clinico', val, 'updatePrehEC');
+        crud_ajax('c_clinico', $(this).val(), 'updatePrehEC');
     });
 
     $("#ec_examen").focusout(function () {
-        var val = $(this).val();
-        crud_ajax('examen_fisico', val, 'updatePrehEC');
+        crud_ajax('examen_fisico', $(this).val(), 'updatePrehEC');
     });
 
     $("#ec_antec").focusout(function () {
-        var val = $(this).val();
-        crud_ajax('antecedentes', val, 'updatePrehEC');
+        crud_ajax('antecedentes', $(this).val(), 'updatePrehEC');
     });
 
     $("#ec_parac").focusout(function () {
-        var val = $(this).val();
-        crud_ajax('paraclinicos', val, 'updatePrehEC');
+        crud_ajax('paraclinicos', $(this).val(), 'updatePrehEC');
     });
 
     $("#ec_tratam").focusout(function () {
-        var val = $(this).val();
-        crud_ajax('tratamiento', val, 'updatePrehEC');
+        crud_ajax('tratamiento', $(this).val(), 'updatePrehEC');
     });
 
     $("#ec_inform").focusout(function () {
-        var val = $(this).val();
-        crud_ajax('diagnos_txt', val, 'updatePrehEC');
+        crud_ajax('diagnos_txt', $(this).val(), 'updatePrehEC');
     });
 
     //formulario evaluación clínica
@@ -468,28 +440,11 @@ $(function () {
     });
 
     $("#hosp_nomMed").focusout(function () {
-        var val = $(this).val();
-        crud_ajax('nombre_medico', val, 'updatePrehM');
+        crud_ajax('nombre_medico', $(this).val(), 'updatePrehM');
     });
 
     $("#hosp_telMed").focusout(function () {
-        var val = $(this).val();
-        crud_ajax('telefono', val, 'updatePrehM');
-    });
-
-    $('.btn-delete').on('click', function () {
-        $.ajax({
-            url: "bd/crud.php",
-            method: "POST",
-            data: {
-                option: 'delete',
-                id: id_paciente
-            }
-        }).done(function () {
-            tableMaestro.ajax.reload();
-        }).fail(function () {
-            console.log('error');
-        });
+        crud_ajax('telefono', $(this).val(), 'updatePrehM');
     });
 
     var tableCIE10 = $('#tableCIE10').DataTable({
