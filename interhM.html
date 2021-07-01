@@ -43,7 +43,7 @@
       <div class="accordion accordionForms" id="accordionForms">
         <div class="card">
           <div class="card-header" id="headingOne">
-            <h5><i class="fa fa-wpforms" aria-hidden="true"></i> Formularios</h5>
+            <h5><i class="fa fa-wpforms" aria-hidden="true"></i> Formulario <span class="case"></span></h5>
           </div>
           <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionForms">
             <div class="card-body">
@@ -86,6 +86,18 @@
                         >Hospital</a
                       >
                     </li>
+                    <li class="nav-item" role="presentation">
+                      <a
+                        class="nav-link"
+                        id="ambulance-tab"
+                        data-toggle="tab"
+                        href="#ambulance"
+                        role="tab"
+                        aria-controls="ambulance"
+                        aria-selected="false"
+                        >Ambulancia</a
+                      >
+                    </li>
                   </ul>
                   <div class="tab-content">
                     <!-- Formulario Paciente -->
@@ -107,7 +119,7 @@
                             <label for="p_number">Número:</label>
                             <input type="text" class="form-control" id="p_number" placeholder="Número" />
                           </div>
-                          <div class="form-group col-md-1">
+                          <div class="form-group col-md-2">
                             <label for="p_exp">Expediente:</label>
                             <input type="text" class="form-control" id="p_exp" placeholder="Expediente" />
                           </div>
@@ -124,12 +136,12 @@
                             <input type="text" class="form-control" id="p_typeage" placeholder="Tipo edad" />
                           </div>
                           <div class="form-group col-md-1">
-                            <legend class="col-form-label">Género:</legend>
-                            <div class="form-check form-check-inline">
+                            <legend class="col-form-label pt-0">Género:</legend>
+                            <div class="form-check">
                               <input class="form-check-input" type="radio" name="gender" id="p_genM" value="m" />
                               <label class="form-check-label" for="p_genM">M</label>
                             </div>
-                            <div class="form-check form-check-inline">
+                            <div class="form-check">
                               <input class="form-check-input" type="radio" name="gender" id="p_genF" value="f" />
                               <label class="form-check-label" for="p_genF">F</label>
                             </div>
@@ -323,6 +335,56 @@
                         </div>
                       </form>
                     </div>
+                    <!-- end form hospital -->
+
+                    <!-- Formulario ambulancia -->
+                    <div class="tab-pane fade" id="ambulance" role="tabpanel" aria-labelledby="ambulance-tab">
+                      <form id="form_ambulance">
+                        <div class="form-row">
+                          <div class="form-group col-md-3">
+                            <label for="date_asig">H. Asignación:</label>
+                            <input type="datetime-local" class="form-control" id="date_asig" step="1" />
+                          </div>
+                          <div class="form-group col-md-3">
+                            <label for="date_lleg">H. Llegada:</label>
+                            <input type="datetime-local" class="form-control" id="date_lleg" step="1" />
+                          </div>
+                          <div class="form-group col-md-3">
+                            <label for="date_ini">H. Inicia:</label>
+                            <input type="datetime-local" class="form-control" id="date_ini" step="1" />
+                          </div>
+                          <div class="form-group col-md-3">
+                            <label for="date_dest">H. Destino:</label>
+                            <input type="datetime-local" class="form-control" id="date_dest" step="1" />
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <div class="form-group col-md-3">
+                            <label for="date_base">H. Base:</label>
+                            <input type="datetime-local" class="form-control" id="date_base" step="1" />
+                          </div>
+                          <div class="form-group col-md-3">
+                            <label for="conductor">Conductor:</label>
+                            <input type="text" class="form-control" id="conductor" placeholder="Conductor" />
+                          </div>
+                          <div class="form-group col-md-3">
+                            <label for="medico">Médico:</label>
+                            <input type="text" class="form-control" id="medico" placeholder="Médico" />
+                          </div>
+                          <div class="form-group col-md-3">
+                            <label for="paramedico">Paramédico:</label>
+                            <input type="text" class="form-control" id="paramedico" placeholder="Paramédico" />
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <div class="form-group col-md-6">
+                            <label for="obs">Observaciones:</label>
+                            <textarea class="form-control" id="obs" placeholder="Observaciones" rows="3"></textarea>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <!-- end form ambulance -->
                   </div>
                 </div>
               </div>
