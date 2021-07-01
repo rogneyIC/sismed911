@@ -1,5 +1,5 @@
 $(function () {
-  var id_maestro_interh, id_paciente_interh, id_eval_interh, focus_value_interh, dataSelect_interh;
+  var id_maestro_interh, id_paciente_interh, id_eval_interh, cod_ambulance, focus_value_interh, dataSelect_interh;
 
   var tableMaestroInterh = $("#tableMaestroInterh").DataTable({
     select: "single",
@@ -73,6 +73,7 @@ $(function () {
       id_maestro_interh = dataSelect_interh[0].cod_casointerh;
       id_paciente_interh = dataSelect_interh[0].id_paciente;
       id_eval_interh = dataSelect_interh[0].id_evaluacionclinica;
+      cod_ambulance = dataSelect_interh[0].cod_ambulancia;
 
       $("span.case").text(" - Caso: " + id_maestro_interh);
 
@@ -192,11 +193,18 @@ $(function () {
       if (dataSelect_interh[0].hora_llegada) $("#date_lleg").val(dataSelect_interh[0].hora_llegada.replace(" ", "T"));
       if (dataSelect_interh[0].hora_inicio) $("#date_ini").val(dataSelect_interh[0].hora_inicio.replace(" ", "T"));
       if (dataSelect_interh[0].hora_destino) $("#date_dest").val(dataSelect_interh[0].hora_destino.replace(" ", "T"));
-      if (dataSelect_interh[0].hora_preposicion) $("#date_base").val(dataSelect_interh[0].hora_preposicion.replace(" ", "T"));
+      if (dataSelect_interh[0].hora_preposicion)
+        $("#date_base").val(dataSelect_interh[0].hora_preposicion.replace(" ", "T"));
       $("#conductor").val(dataSelect_interh[0].conductor);
       $("#medico").val(dataSelect_interh[0].medico);
       $("#paramedico").val(dataSelect_interh[0].paramedico);
       $("#obs").html(dataSelect_interh[0].observacion_ambulancia);
+      if (dataSelect_interh[0].cod_ambulancia) {
+        $("#serviceAmbulance").val(dataSelect_interh[0].cod_ambulancias + " - " + dataSelect_interh[0].placas);
+        $(".change").prop("disabled", false);
+      } else {
+        $(".change").prop("disabled", true);
+      }
 
       $("#collapseOne").collapse("show");
     }
@@ -212,6 +220,7 @@ $(function () {
           idM: id_maestro_interh,
           idP: id_paciente_interh,
           idEC: id_eval_interh,
+          codA: cod_ambulance,
           setField: val,
           field: field,
         },
@@ -332,6 +341,7 @@ $(function () {
   $("#p_obs").focusout(function () {
     crud_ajax("observacion", $(this).val(), "updateP");
   });
+  //end formulario paciente
 
   //formulario evaluación clínica
   $("#ec_ta").focus(function () {
@@ -457,6 +467,7 @@ $(function () {
   $("#ec_inform").focusout(function () {
     crud_ajax("diagnos_txt", $(this).val(), "updateInterhEC");
   });
+  //end formulario evaluación clínica
 
   //formulario hospital
   $("#hosp_nomMed").focus(function () {
@@ -474,6 +485,7 @@ $(function () {
   $("#hosp_telMed").focusout(function () {
     crud_ajax("telefono", $(this).val(), "updateInterhM");
   });
+  //end formulario hospital
 
   //Formulario ambulancia
   $("#date_asig").focus(function () {
@@ -512,6 +524,14 @@ $(function () {
     focus_value = $(this).val();
   });
 
+  $("#select_ambulance").on("change", function () {
+    if ($("#select_ambulance option:selected").val() != 0) {
+      var option = dataSelect_interh[0].cod_ambulancia ? "updateInterhSA" : "insertInterhSA";
+      crud_ajax("cod_ambulancia", $("#select_ambulance option:selected").text(), option);
+      $(".change").prop("disabled", false);
+    }
+  });
+
   $("#date_asig").focusout(function () {
     crud_ajax("hora_asigna", $(this).val().replace("T", " "), "updateInterhSA");
   });
@@ -547,6 +567,7 @@ $(function () {
   $("#obs").focusout(function () {
     crud_ajax("observaciones", $(this).val(), "updateInterhSA");
   });
+  //end formulario ambulancia
 
   var tableCIE10 = $("#tableCIE10").DataTable({
     select: "single",
@@ -584,6 +605,10 @@ $(function () {
     deferRender: true,
     columns: [{ data: "codigo_cie" }, { data: "diagnostico" }],
     //dom: 'Bfrtip'
+  });
+
+  $("#CIE10").on("show.bs.modal", function () {
+    tableCIE10.ajax.reload();
   });
 
   tableCIE10.on("select", function (e, dt, type, indexes) {
@@ -636,6 +661,10 @@ $(function () {
     deferRender: true,
     columns: [{ data: "id_hospital" }, { data: "nombre_hospital" }],
     //dom: 'Bfrtip'
+  });
+
+  $("#hosp").on("show.bs.modal", function () {
+    tableHosp.ajax.reload();
   });
 
   tableHosp.on("select", function (e, dt, type, indexes) {
@@ -741,6 +770,64 @@ $(function () {
 
   $(".btnNote").on("click", function () {
     crud_ajax("seguimento", $("#noteInput").val(), "updateInterhSeguim");
+  });
+
+  var tableAmbulance = $("#tableAmbulance").DataTable({
+    select: "single",
+    //pageLength: 5,
+    language: {
+      select: {
+        rows: {
+          _: "",
+          0: "",
+          1: "",
+        },
+      },
+      sProcessing: "Procesando...",
+      sLengthMenu: "Mostrar _MENU_ registros",
+      sZeroRecords: "No se encontraron resultados",
+      sEmptyTable: "Ningún dato disponible en esta tabla",
+      sInfo: "Mostrando _START_ al _END_ de _TOTAL_",
+      sInfoEmpty: "Mostrando 0 al 0 de 0 registros",
+      sInfoFiltered: "(filtrado de un total de _MAX_ registros)",
+      sSearch: "Buscar:",
+      sLoadingRecords: "Cargando...",
+      oPaginate: {
+        sFirst: "Primero",
+        sLast: "Último",
+        sNext: "Siguiente",
+        sPrevious: "Anterior",
+      },
+    },
+    ajax: {
+      url: "bd/crud.php",
+      method: "POST",
+      data: { option: "selectAmbulance" },
+      dataSrc: "",
+    },
+    deferRender: true,
+    columns: [{ data: "cod_ambulancias" }, { data: "placas" }],
+    //dom: 'Bfrtip'
+  });
+
+  $("#modalAmbulance").on("show.bs.modal", function () {
+    tableAmbulance.ajax.reload();
+  });
+
+  tableAmbulance.on("select", function (e, dt, type, indexes) {
+    $(".btnAmbulance").prop("disabled", false);
+  });
+
+  tableAmbulance.on("deselect", function (e, dt, type, indexes) {
+    $(".btnAmbulance").prop("disabled", true);
+  });
+
+  $(".btnAmbulance").on("click", function () {
+    var dataSelectAmbulance = tableAmbulance.rows(".selected").data();
+    var option = dataSelect_interh[0].cod_ambulancia ? "updatePrehSA" : "insertPrehSA";
+    $("#serviceAmbulance").val(dataSelectAmbulance[0].cod_ambulancias + " - " + dataSelectAmbulance[0].placas);
+    crud_ajax("cod_ambulancia", dataSelectAmbulance[0].cod_ambulancias, option);
+    $(".change").prop("disabled", false);
   });
 
   setInterval(function () {
