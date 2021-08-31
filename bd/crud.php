@@ -164,7 +164,7 @@ switch ($option) {
         echo $result;
         break;
     case 'updateP':
-        if ($field == 'tipo_doc') {
+        /*if ($field == 'tipo_doc') {
             $sql = "SELECT id_tipo FROM tipo_id WHERE descripcion='" . $setField . "';";
             $result = $connection->execute($connect, $sql);
             if (!$result) {
@@ -173,7 +173,7 @@ switch ($option) {
             }
             $data = pg_fetch_all($result);
             $setField = $data[0]['id_tipo'];
-        }
+        }*/
         $sql = "UPDATE pacientegeneral SET " . $field . "='" . $setField . "' WHERE id_paciente=" . $id_paciente;
         $result = $connection->execute($connect, $sql);
         if (!$result) {
@@ -275,4 +275,4 @@ switch ($option) {
         break;
 }
 
-$conexion = null;
+$connection = null;

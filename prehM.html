@@ -3,7 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
     <title>Preh_Maestro</title>
     <link rel="stylesheet" href="assets/bootstrap.min.css" />
     <link rel="stylesheet" href="assets/dataTables.bootstrap4.min.css" />
@@ -17,7 +20,11 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-12">
-          <table id="tableMaestro" class="table table-striped table-bordered dt-responsive nowrap" style="width: 100%">
+          <table
+            id="tableMaestro"
+            class="table table-striped table-bordered dt-responsive nowrap"
+            style="width: 100%"
+          >
             <thead>
               <tr>
                 <th>Caso</th>
@@ -45,9 +52,17 @@
           <div class="accordion accordionForms" id="accordionForms">
             <div class="card">
               <div class="card-header" id="headingOne">
-                <h5><i class="fa fa-wpforms" aria-hidden="true"></i> Formulario <span class="case"></span></h5>
+                <h5>
+                  <i class="fa fa-wpforms" aria-hidden="true"></i> Formulario
+                  <span class="case"></span>
+                </h5>
               </div>
-              <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionForms">
+              <div
+                id="collapseOne"
+                class="collapse"
+                aria-labelledby="headingOne"
+                data-parent="#accordionForms"
+              >
                 <div class="card-body">
                   <div class="row">
                     <div class="col-lg-12">
@@ -107,26 +122,56 @@
                               </div>
                               <div class="form-group col-lg-2">
                                 <label for="p_number">Número:</label>
-                                <input type="text" class="form-control" id="p_number" placeholder="Número" />
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  id="p_number"
+                                  name="p_number"
+                                  placeholder="Número"
+                                />
+                                <div class="invalid-feedback">
+                                  Ingrese un número válido
+                                </div>
                               </div>
                               <div class="form-group col-lg-2">
                                 <label for="p_exp">Expediente:</label>
-                                <input type="text" class="form-control" id="p_exp" placeholder="Expediente" />
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  id="p_exp"
+                                  placeholder="Expediente"
+                                />
                               </div>
                               <div class="form-group col-lg-2">
                                 <label for="p_date">Fecha de nacimiento:</label>
-                                <input type="date" class="form-control" id="p_date" />
+                                <input
+                                  type="date"
+                                  class="form-control"
+                                  id="p_date"
+                                />
                               </div>
                               <div class="form-group col-lg-1">
                                 <label for="p_age">Edad:</label>
-                                <input type="text" class="form-control" id="p_age" placeholder="Edad" />
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  id="p_age"
+                                  placeholder="Edad"
+                                />
                               </div>
                               <div class="form-group col-lg-1">
                                 <label for="p_typeage">Tipo edad:</label>
-                                <input type="text" class="form-control" id="p_typeage" placeholder="Tipo edad" />
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  id="p_typeage"
+                                  placeholder="Tipo edad"
+                                />
                               </div>
                               <div class="form-group col-lg-1">
-                                <legend class="col-form-label pt-0">Género:</legend>
+                                <legend class="col-form-label pt-0">
+                                  Género:
+                                </legend>
                                 <div class="form-check">
                                   <input
                                     class="form-check-input gender"
@@ -135,7 +180,9 @@
                                     id="p_genM"
                                     value="m"
                                   />
-                                  <label class="form-check-label" for="p_genM">M</label>
+                                  <label class="form-check-label" for="p_genM"
+                                    >M</label
+                                  >
                                 </div>
                                 <div class="form-check">
                                   <input
@@ -145,34 +192,66 @@
                                     id="p_genF"
                                     value="f"
                                   />
-                                  <label class="form-check-label" for="p_genF">F</label>
+                                  <label class="form-check-label" for="p_genF"
+                                    >F</label
+                                  >
                                 </div>
                               </div>
                               <div class="form-group col-lg-2">
                                 <label for="p_phone">Teléfono:</label>
-                                <input type="text" class="form-control" id="p_phone" placeholder="Número de teléfono" />
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  id="p_phone"
+                                  placeholder="Número de teléfono"
+                                />
                               </div>
                             </div>
                             <div class="form-row">
                               <div class="form-group col-lg-2">
                                 <label for="p_name1">Nombre 1:</label>
-                                <input type="text" class="form-control" id="p_name1" placeholder="Nombre 1" />
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  id="p_name1"
+                                  placeholder="Nombre 1"
+                                />
                               </div>
                               <div class="form-group col-lg-2">
                                 <label for="p_name2">Nombre 2:</label>
-                                <input type="text" class="form-control" id="p_name2" placeholder="Nombre 2" />
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  id="p_name2"
+                                  placeholder="Nombre 2"
+                                />
                               </div>
                               <div class="form-group col-lg-2">
                                 <label for="p_lastname1">Apellido 1:</label>
-                                <input type="text" class="form-control" id="p_lastname1" placeholder="Apellido 1" />
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  id="p_lastname1"
+                                  placeholder="Apellido 1"
+                                />
                               </div>
                               <div class="form-group col-lg-2">
                                 <label for="p_lastname2">Apellido 2:</label>
-                                <input type="text" class="form-control" id="p_lastname2" placeholder="Apellido 2" />
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  id="p_lastname2"
+                                  placeholder="Apellido 2"
+                                />
                               </div>
                               <div class="form-group col-lg-2">
                                 <label for="p_segS">No. seguro social:</label>
-                                <input type="text" class="form-control" id="p_segS" placeholder="No. seguro social" />
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  id="p_segS"
+                                  placeholder="No. seguro social"
+                                />
                               </div>
                             </div>
                             <div class="form-row">
@@ -187,7 +266,11 @@
                               </div>
                               <div class="form-group col-lg-6">
                                 <label for="p_obs">Observaciones:</label>
-                                <textarea class="form-control" id="p_obs" placeholder="Observaciones"></textarea>
+                                <textarea
+                                  class="form-control"
+                                  id="p_obs"
+                                  placeholder="Observaciones"
+                                ></textarea>
                               </div>
                             </div>
                           </form>
@@ -195,69 +278,140 @@
                         <!-- end form paciente-->
 
                         <!-- Formulario Evaluación clínica -->
-                        <div class="tab-pane fade" id="evaluacion" role="tabpanel" aria-labelledby="evaluacion-tab">
-                          <form id="form_evalClinic" class="needs-validation" novalidate>
+                        <div
+                          class="tab-pane fade"
+                          id="evaluacion"
+                          role="tabpanel"
+                          aria-labelledby="evaluacion-tab"
+                        >
+                          <form
+                            id="form_evalClinic"
+                            class="needs-validation"
+                            novalidate
+                          >
                             <div class="form-row">
                               <div class="form-group col-lg-2">
                                 <label for="ec_triage">Triage:</label>
-                                <select class="form-control" id="ec_triage" required>
+                                <select
+                                  class="form-control"
+                                  id="ec_triage"
+                                  required
+                                >
                                   <option>Seleccione...</option>
                                 </select>
-                                <div class="invalid-tooltip">Please select a valid state.</div>
+                                <div class="invalid-tooltip">
+                                  Please select a valid state.
+                                </div>
                               </div>
                               <div class="form-group col-lg-2">
                                 <label for="ec_ta">T.A:</label>
-                                <input type="text" class="form-control" id="ec_ta" placeholder="T.A" />
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  id="ec_ta"
+                                  placeholder="T.A"
+                                />
                               </div>
                               <div class="form-group col-lg-2">
                                 <label for="ec_fc">F.C:</label>
-                                <input type="text" class="form-control" id="ec_fc" placeholder="F.C" />
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  id="ec_fc"
+                                  placeholder="F.C"
+                                />
                               </div>
                               <div class="form-group col-lg-2">
                                 <label for="ec_fr">F.R:</label>
-                                <input type="text" class="form-control" id="ec_fr" placeholder="F.R" />
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  id="ec_fr"
+                                  placeholder="F.R"
+                                />
                               </div>
                               <div class="form-group col-lg-1">
                                 <label for="ec_temp">T°:</label>
-                                <input type="text" class="form-control" id="ec_temp" placeholder="T°" />
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  id="ec_temp"
+                                  placeholder="T°"
+                                />
                               </div>
                             </div>
                             <div class="form-row">
                               <div class="form-group col-lg-1">
                                 <label for="ec_gl">Glasgow:</label>
-                                <input type="text" class="form-control" id="ec_gl" placeholder="Glasgow" />
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  id="ec_gl"
+                                  placeholder="Glasgow"
+                                />
                               </div>
                               <div class="form-group col-lg-1">
                                 <label for="ec_sato2">sv sat 02:</label>
-                                <input type="text" class="form-control" id="ec_sato2" placeholder="sv sat O2" />
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  id="ec_sato2"
+                                  placeholder="sv sat O2"
+                                />
                               </div>
                               <div class="form-group col-lg-1">
                                 <label for="ec_gli">Glicemia:</label>
-                                <input type="text" class="form-control" id="ec_gli" placeholder="Glicemia" />
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  id="ec_gli"
+                                  placeholder="Glicemia"
+                                />
                               </div>
                               <div class="form-group col-lg-1">
                                 <label for="ec_talla">Talla:</label>
-                                <input type="text" class="form-control" id="ec_talla" placeholder="Talla" />
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  id="ec_talla"
+                                  placeholder="Talla"
+                                />
                               </div>
                               <div class="form-group col-lg-1">
                                 <label for="ec_peso">Peso:</label>
-                                <input type="text" class="form-control" id="ec_peso" placeholder="Peso" />
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  id="ec_peso"
+                                  placeholder="Peso"
+                                />
                               </div>
                             </div>
                             <div class="form-row">
                               <div class="form-group col-lg-10">
                                 <label for="ec_cie10">CIE10:</label>
                                 <div class="input-group">
-                                  <input type="text" class="form-control" id="ec_cie10" placeholder="CIE10" />
+                                  <input
+                                    type="text"
+                                    class="form-control"
+                                    id="ec_cie10"
+                                    placeholder="CIE10"
+                                  />
                                   <div class="input-group-append">
                                     <!-- Button trigger modal -->
                                     <button
                                       type="button"
-                                      class="btn btn-outline-secondary cie10_search"
+                                      class="
+                                        btn btn-outline-secondary
+                                        cie10_search
+                                      "
                                       data-toggle="modal"
                                       data-target="#CIE10"
                                     >
-                                      <i class="fa fa-search" aria-hidden="true"></i>
+                                      <i
+                                        class="fa fa-search"
+                                        aria-hidden="true"
+                                      ></i>
                                     </button>
                                   </div>
                                 </div>
@@ -326,7 +480,12 @@
                         <!-- end form Evaluacion clínica-->
 
                         <!-- Formulario Hospital -->
-                        <div class="tab-pane fade" id="hospital" role="tabpanel" aria-labelledby="hospital-tab">
+                        <div
+                          class="tab-pane fade"
+                          id="hospital"
+                          role="tabpanel"
+                          aria-labelledby="hospital-tab"
+                        >
                           <form id="form_hospital">
                             <div class="form-row">
                               <div class="form-group col-lg-8">
@@ -342,22 +501,38 @@
                                     <!-- Button trigger modal -->
                                     <button
                                       type="button"
-                                      class="btn btn-outline-secondary hosp_search"
+                                      class="
+                                        btn btn-outline-secondary
+                                        hosp_search
+                                      "
                                       data-toggle="modal"
                                       data-target="#hosp"
                                     >
-                                      <i class="fa fa-search" aria-hidden="true"></i>
+                                      <i
+                                        class="fa fa-search"
+                                        aria-hidden="true"
+                                      ></i>
                                     </button>
                                   </div>
                                 </div>
                               </div>
                               <div class="form-group col-lg-2">
                                 <label for="hosp_nomMed">Nombre Médico:</label>
-                                <input type="text" class="form-control" id="hosp_nomMed" placeholder="Nombre Médico" />
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  id="hosp_nomMed"
+                                  placeholder="Nombre Médico"
+                                />
                               </div>
                               <div class="form-group col-lg-2">
                                 <label for="hosp_telMed">Tel. Médico:</label>
-                                <input type="text" class="form-control" id="hosp_telMed" placeholder="Tel. Médico" />
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  id="hosp_telMed"
+                                  placeholder="Tel. Médico"
+                                />
                               </div>
                             </div>
                           </form>
@@ -375,17 +550,32 @@
     </div>
 
     <!-- Modal CIE10-->
-    <div class="modal fade" id="CIE10" tabindex="-1" aria-labelledby="CIE" aria-hidden="true">
+    <div
+      class="modal fade"
+      id="CIE10"
+      tabindex="-1"
+      aria-labelledby="CIE"
+      aria-hidden="true"
+    >
       <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="CIE">Seleccione el CIE10</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <table id="tableCIE10" class="table table-striped table-bordered" style="width: 100%">
+            <table
+              id="tableCIE10"
+              class="table table-striped table-bordered"
+              style="width: 100%"
+            >
               <thead>
                 <tr>
                   <th>Código</th>
@@ -396,7 +586,12 @@
             </table>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary not-allowed btnCIE10" data-dismiss="modal" disabled>
+            <button
+              type="button"
+              class="btn btn-primary not-allowed btnCIE10"
+              data-dismiss="modal"
+              disabled
+            >
               Aceptar
             </button>
           </div>
@@ -405,17 +600,32 @@
     </div>
 
     <!-- Modal Hospital -->
-    <div class="modal fade" id="hosp" tabindex="-1" aria-labelledby="hospit" aria-hidden="true">
+    <div
+      class="modal fade"
+      id="hosp"
+      tabindex="-1"
+      aria-labelledby="hospit"
+      aria-hidden="true"
+    >
       <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="hospit">Seleccione el hospital</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <table id="tableHosp" class="table table-striped table-bordered" style="width: 100%">
+            <table
+              id="tableHosp"
+              class="table table-striped table-bordered"
+              style="width: 100%"
+            >
               <thead>
                 <tr>
                   <th>Id</th>
@@ -426,7 +636,12 @@
             </table>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary not-allowed btnHosp" data-dismiss="modal" disabled>
+            <button
+              type="button"
+              class="btn btn-primary not-allowed btnHosp"
+              data-dismiss="modal"
+              disabled
+            >
               Aceptar
             </button>
           </div>
@@ -435,12 +650,23 @@
     </div>
 
     <!-- Modal Cerrar Caso -->
-    <div class="modal fade" id="modalR" tabindex="-1" aria-labelledby="razonM" aria-hidden="true">
+    <div
+      class="modal fade"
+      id="modalR"
+      tabindex="-1"
+      aria-labelledby="razonM"
+      aria-hidden="true"
+    >
       <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="razonM">Cerrar el caso</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -450,11 +676,23 @@
               <option>Seleccione...</option>
             </select>
             <br />
-            <label for="razon">Por favor, escriba la razón por la cual cierra el caso:</label>
-            <textarea class="form-control" id="razon" rows="5" placeholder="Razón"></textarea>
+            <label for="razon"
+              >Por favor, escriba la razón por la cual cierra el caso:</label
+            >
+            <textarea
+              class="form-control"
+              id="razon"
+              rows="5"
+              placeholder="Razón"
+            ></textarea>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary not-allowed btnRazon" data-dismiss="modal" disabled>
+            <button
+              type="button"
+              class="btn btn-primary not-allowed btnRazon"
+              data-dismiss="modal"
+              disabled
+            >
               Aceptar
             </button>
           </div>
@@ -463,12 +701,23 @@
     </div>
 
     <!-- Modal Seguimiento -->
-    <div class="modal fade" id="modalSeg" tabindex="-1" aria-labelledby="seguim" aria-hidden="true">
+    <div
+      class="modal fade"
+      id="modalSeg"
+      tabindex="-1"
+      aria-labelledby="seguim"
+      aria-hidden="true"
+    >
       <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="seguim">Seguimiento</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -477,10 +726,20 @@
             <ul id="segNote"></ul>
             <br />
             <label for="noteInput">Por favor, escriba la nota:</label>
-            <input type="text" class="form-control" id="noteInput" placeholder="Nota" />
+            <input
+              type="text"
+              class="form-control"
+              id="noteInput"
+              placeholder="Nota"
+            />
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary not-allowed btnNote" data-dismiss="modal" disabled>
+            <button
+              type="button"
+              class="btn btn-primary not-allowed btnNote"
+              data-dismiss="modal"
+              disabled
+            >
               Aceptar
             </button>
           </div>
@@ -489,12 +748,13 @@
     </div>
 
     <script src="assets/jquery-3.6.0.min.js"></script>
+    <script src="assets/jquery.maskedinput.js"></script>
     <script src="assets/jquery.dataTables.min.js"></script>
     <script src="assets/bootstrap.bundle.min.js"></script>
     <script src="assets/dataTables.bootstrap4.min.js"></script>
     <script src="assets/dataTables.responsive.min.js"></script>
     <script src="assets/responsive.bootstrap4.min.js"></script>
     <script src="assets/dataTables.select.min.js"></script>
-    <script type="text/javascript" src="prehM.js"></script>
+    <script src="prehM.js"></script>
   </body>
 </html>
