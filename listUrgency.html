@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lista de urgencias</title>
+    <link rel="stylesheet" href="assets/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/dataTables.bootstrap4.min.css" />
+    <link rel="stylesheet" href="assets/responsive.bootstrap4.min.css" />
+    <link rel="stylesheet" href="assets/select.bootstrap4.min.css" />
+    <link rel="stylesheet" href="assets/font-awesome.min.css" />
+    <link rel="stylesheet" href="main.css" />
+
+    <script src="assets/jspdf.umd.min.js"></script>
+    <script src="assets/jspdf.plugin.autotable.min.js"></script>
+  </head>
+
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-12 table-responsive">
+          <table
+            id="tableUrgency"
+            class="table table-striped table-bordered nowrap"
+            style="width: 100%"
+          >
+            <thead>
+              <tr>
+                <th>Clasificación</th>
+                <th>Tiempo</th>
+                <th>Fecha Clasificación</th>
+                <th>No. HC</th>
+                <th>Paciente</th>
+                <th>Emergencia</th>
+                <th>Dar de alta</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="accordion accordionForms" id="accordionForms">
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5>
+                  <i class="fa fa-wpforms" aria-hidden="true"></i> Formulario
+                  <span class="case"></span>
+                </h5>
+              </div>
+              <div
+                id="collapseOne"
+                class="collapse"
+                aria-labelledby="headingOne"
+                data-parent="#accordionForms"
+              >
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <!-- Formulario emergencia -->
+                      <form id="form_urgency">
+                        <div class="form-row">
+                          <div class="form-group col-lg-3">
+                            <label for="general">General:</label>
+                            <select class="form-control" id="general">
+                              <option>-- Seleccione una opción --</option>
+                            </select>
+                          </div>
+                          <div class="form-group col-lg-3">
+                            <label for="cabeza">Cabeza:</label>
+                            <select class="form-control" id="cabeza">
+                              <option>-- Seleccione una opción --</option>
+                            </select>
+                          </div>
+                          <div class="form-group col-lg-3">
+                            <label for="ojo">Ojos:</label>
+                            <select class="form-control" id="ojo">
+                              <option>-- Seleccione una opción --</option>
+                            </select>
+                          </div>
+                          <div class="form-group col-lg-3">
+                            <label for="otorrino">Otorrino:</label>
+                            <select class="form-control" id="otorrino">
+                              <option>-- Seleccione una opción --</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <div class="form-group col-lg-3">
+                            <label for="boca">Boca:</label>
+                            <select class="form-control" id="boca">
+                              <option>-- Seleccione una opción --</option>
+                            </select>
+                          </div>
+                          <div class="form-group col-lg-3">
+                            <label for="cuello">Cuello:</label>
+                            <select class="form-control" id="cuello">
+                              <option>-- Seleccione una opción --</option>
+                            </select>
+                          </div>
+                          <div class="form-group col-lg-3">
+                            <label for="torax">Tórax:</label>
+                            <select class="form-control" id="torax">
+                              <option>-- Seleccione una opción --</option>
+                            </select>
+                          </div>
+                          <div class="form-group col-lg-3">
+                            <label for="corazon">Corazón:</label>
+                            <select class="form-control" id="corazon">
+                              <option>-- Seleccione una opción --</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <div class="form-group col-lg-3">
+                            <label for="pulmon">Pulmón:</label>
+                            <select class="form-control" id="pulmon">
+                              <option>-- Seleccione una opción --</option>
+                            </select>
+                          </div>
+                          <div class="form-group col-lg-3">
+                            <label for="abdomen">Abdomen:</label>
+                            <select class="form-control" id="abdomen">
+                              <option>-- Seleccione una opción --</option>
+                            </select>
+                          </div>
+                          <div class="form-group col-lg-3">
+                            <label for="pelvis">Pelvis:</label>
+                            <select class="form-control" id="pelvis">
+                              <option>-- Seleccione una opción --</option>
+                            </select>
+                          </div>
+                          <div class="form-group col-lg-3">
+                            <label for="rectal">Rectal:</label>
+                            <select class="form-control" id="rectal">
+                              <option>-- Seleccione una opción --</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <div class="form-group col-lg-3">
+                            <label for="genital">Genital:</label>
+                            <select class="form-control" id="genital">
+                              <option>-- Seleccione una opción --</option>
+                            </select>
+                          </div>
+                          <div class="form-group col-lg-3">
+                            <label for="extremidad">Extremidad:</label>
+                            <select class="form-control" id="extremidad">
+                              <option>-- Seleccione una opción --</option>
+                            </select>
+                          </div>
+                          <div class="form-group col-lg-3">
+                            <label for="neuro">Neuro:</label>
+                            <select class="form-control" id="neuro">
+                              <option>-- Seleccione una opción --</option>
+                            </select>
+                          </div>
+                          <div class="form-group col-lg-3">
+                            <label for="piel">Piel:</label>
+                            <select class="form-control" id="piel">
+                              <option>-- Seleccione una opción --</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <div class="form-group col-lg-6">
+                            <label for="sign">Síntomas:</label>
+                            <textarea
+                              class="form-control"
+                              id="sign"
+                              placeholder="Síntomas"
+                              rows="5"
+                            ></textarea>
+                          </div>
+                          <div class="form-group col-lg-6">
+                            <label for="description"
+                              >Descripción diagnóstico:</label
+                            >
+                            <textarea
+                              class="form-control"
+                              id="description"
+                              placeholder="Descripción diagnóstico"
+                              rows="5"
+                            ></textarea>
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <div class="form-group col-lg-6">
+                            <label for="ec_cie10">CIE10:</label>
+                            <div class="input-group">
+                              <input
+                                type="text"
+                                class="form-control"
+                                id="ec_cie10"
+                                placeholder="CIE10"
+                                disabled
+                              />
+                              <div class="input-group-append">
+                                <!-- Button trigger modal -->
+                                <button
+                                  type="button"
+                                  class="btn btn-outline-secondary cie10_search"
+                                  data-toggle="modal"
+                                  data-target="#modal_CIE10"
+                                >
+                                  <i
+                                    class="fa fa-search"
+                                    aria-hidden="true"
+                                  ></i>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form-group col-lg-6">
+                            <label for="other">Otros:</label>
+                            <textarea
+                              class="form-control"
+                              id="other"
+                              placeholder="Otros"
+                            ></textarea>
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <div class="col-6">
+                            <div class="form-row">
+                              <div class="form-group col-auto">
+                                <button
+                                  type="button"
+                                  class="btn btn-primary"
+                                  data-toggle="modal"
+                                  data-target="#modal-medical"
+                                >
+                                  <i class="fa fa-plus"></i> Medicamentos
+                                </button>
+                              </div>
+                              <div class="form-group col-auto">
+                                <button
+                                  type="button"
+                                  class="btn btn-primary"
+                                  id="print-medical"
+                                >
+                                  <i class="fa fa-print"></i> Orden Medicamentos
+                                </button>
+                              </div>
+                            </div>
+                            <div class="form-row">
+                              <div class="form-group col table-responsive">
+                                <table
+                                  id="tableMedical"
+                                  class="
+                                    table table-striped table-bordered
+                                    nowrap
+                                  "
+                                  style="width: 100%"
+                                >
+                                  <thead>
+                                    <tr>
+                                      <th>Medicamento</th>
+                                      <th>Dosis</th>
+                                      <th>Opción</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody></tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-6">
+                            <div class="form-row">
+                              <div class="form-group col-auto">
+                                <button
+                                  type="button"
+                                  class="btn btn-primary"
+                                  data-toggle="modal"
+                                  data-target="#modal-examen"
+                                >
+                                  <i class="fa fa-plus"></i> Exámenes
+                                </button>
+                              </div>
+                              <div class="form-group col-auto">
+                                <button
+                                  type="button"
+                                  class="btn btn-primary"
+                                  id="print-examen"
+                                >
+                                  <i class="fa fa-print"></i> Orden Exámenes
+                                </button>
+                              </div>
+                            </div>
+                            <div class="form-row">
+                              <div class="form-group col table-responsive">
+                                <table
+                                  id="tableExamen"
+                                  class="
+                                    table table-striped table-bordered
+                                    nowrap
+                                  "
+                                  style="width: 100%"
+                                >
+                                  <thead>
+                                    <tr>
+                                      <th>Exámenes</th>
+                                      <th>Opción</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody></tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                      <!-- end form emergencia-->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal CIE10-->
+    <div
+      class="modal fade"
+      id="modal_CIE10"
+      tabindex="-1"
+      aria-labelledby="CIE"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="CIE">Seleccione el CIE10</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <table
+              id="tableCIE10"
+              class="table table-striped table-bordered"
+              style="width: 100%"
+            >
+              <thead>
+                <tr>
+                  <th>Código</th>
+                  <th>Diagnóstico</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-primary not-allowed btnCIE10"
+              data-dismiss="modal"
+              disabled
+            >
+              Aceptar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end modal CIE10 -->
+
+    <!-- Modal examen-->
+    <div
+      class="modal fade"
+      id="modal-examen"
+      tabindex="-1"
+      aria-labelledby="exam"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exam">Seleccione el examen</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <table
+              id="table-examen"
+              class="table table-striped table-bordered"
+              style="width: 100%"
+            >
+              <thead>
+                <tr>
+                  <th>Examen</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-primary not-allowed btn-examen"
+              data-dismiss="modal"
+              disabled
+            >
+              Aceptar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end modal examen -->
+
+    <!-- Modal medicamento-->
+    <div
+      class="modal fade"
+      id="modal-medical"
+      tabindex="-1"
+      aria-labelledby="medic"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="medic">Seleccione el medicamento</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-row">
+              <div class="form-group col-lg-9">
+                <label for="input-medical">Medicamento:</label>
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="input-medical"
+                    placeholder="Medicamento"
+                    disabled
+                  />
+                  <div class="input-group-append">
+                    <!-- Button trigger modal -->
+                    <button
+                      type="button"
+                      class="btn btn-outline-secondary medical-search"
+                      data-toggle="modal"
+                      data-target="#modal-medical-search"
+                    >
+                      <i class="fa fa-search" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-lg-3">
+                <label for="dosis">Dosis:</label>
+                <input class="form-control" id="dosis" placeholder="Dosis" />
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-primary not-allowed btn-medical"
+              data-dismiss="modal"
+              disabled
+            >
+              Aceptar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end modal medicamento -->
+
+    <!-- Modal buscar medicamento-->
+    <div
+      class="modal fade"
+      id="modal-medical-search"
+      tabindex="-1"
+      aria-labelledby="medic-search"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="medic-search">
+              Seleccione el medicamento
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <table
+              id="table-medical"
+              class="table table-striped table-bordered"
+              style="width: 100%"
+            >
+              <thead>
+                <tr>
+                  <th>Medicamentos</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-primary not-allowed btn-medical-search"
+              data-dismiss="modal"
+              disabled
+            >
+              Aceptar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end modal buscar medicamento -->
+
+    <!-- Modal egreso-->
+    <div
+      class="modal fade"
+      id="modal-egress"
+      tabindex="-1"
+      aria-labelledby="egress"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="egress">Egreso</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-row">
+              <div class="form-group col-auto">
+                <label for="disposal">Disposición:</label>
+                <select class="form-control" id="disposal">
+                  <option>-- Seleccione una opción --</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-primary not-allowed btn-egress"
+              data-dismiss="modal"
+              disabled
+            >
+              Aceptar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end modal egreso -->
+
+    <script src="assets/jquery-3.6.0.min.js"></script>
+    <script src="assets/jquery.maskedinput.js"></script>
+    <script src="assets/jquery.dataTables.min.js"></script>
+    <script src="assets/bootstrap.bundle.min.js"></script>
+    <script src="assets/dataTables.bootstrap4.min.js"></script>
+    <script src="assets/dataTables.responsive.min.js"></script>
+    <script src="assets/responsive.bootstrap4.min.js"></script>
+    <script src="assets/dataTables.select.min.js"></script>    
+    <script src="listUrgency.js"></script>
+  </body>
+</html>

@@ -175,27 +175,48 @@ $(function () {
     });
 
   $("#ingress").on("change", function (e) {
-    if ($("#ingress option:selected").val() != 0 && $("#idP").val() != "") {
-      $("#btnSaveAdmission").prop("disabled", false);
+    $("#ingress option:selected").val() != 0 && $("#idP").val() != ""
+      ? $("#btnSaveAdmission").prop("disabled", false)
+      : $("#btnSaveAdmission").prop("disabled", true);
+    if ($("#ingress option:selected").text() == "Ambulancia 911") {
+      $.trim($("#code").val()) != ""
+        ? $("#btnSaveAdmission").prop("disabled", false)
+        : $("#btnSaveAdmission").prop("disabled", true);
+      $("#labelCode").prop("hidden", false);
+      $("#code").prop("hidden", false);
     } else {
-      $("#btnSaveAdmission").prop("disabled", true);
+      $("#labelCode").prop("hidden", true);
+      $("#code").prop("hidden", true);
+      $("#code").val("");
     }
   });
 
-  $("#btnSaveAdmission").on("click", function () {
+  $("#btnSaveAdmission").on("click", function (e) {
+    e.preventDefault();
     $.ajax({
       url: "bd/admission.php",
       method: "POST",
       data: {
         option: "insertAdmission",
         ingress: $("#ingress option:selected").val(),
+        cod911: $("#code").val() == "" ? "null" : $("#code").val(),
         idP: id_patient,
-        acompañante: $("#acompañante").val(),
-        phone_acompañante: $("#phone_acompañante").val(),
+        acompañante:
+          $("#acompañante").val() == ""
+            ? "null"
+            : "'" + $("#acompañante").val() + "'",
+        phone_acompañante:
+          $("#phone_acompañante").val() == ""
+            ? "null"
+            : "'" + $("#phone_acompañante").val() + "'",
       },
     })
-      .done(function (data) {
-        console.log(data);
+      .done(function () {
+        $("#form_admission").trigger("reset");
+        $("#collapseOne").collapse("hide");
+        $("#labelCode").prop("hidden", true);
+        $("#code").prop("hidden", true);
+        $("#btnSaveAdmission").prop("disabled", true);
       })
       .fail(function () {
         console.log("error");
@@ -234,9 +255,9 @@ $(function () {
     $("#idP").val(
       dataSelectPatient[0].id_paciente +
         "-" +
-        dataSelectPatient[0].nombre1 +
+        (dataSelectPatient[0].nombre1 ? dataSelectPatient[0].nombre1 : "") +
         " " +
-        dataSelectPatient[0].apellido1
+        (dataSelectPatient[0].apellido1 ? dataSelectPatient[0].apellido1 : "")
     );
     $.ajax({
       url: "bd/admission.php",
@@ -271,9 +292,15 @@ $(function () {
         $("#p_address").val(data[0].direccion);
         $("#p_obs").html(data[0].observacion);
         $("#collapseOne").collapse("show");
-        $("#ingress option:selected").val() != 0
-          ? $("#btnSaveAdmission").prop("disabled", false)
-          : $("#btnSaveAdmission").prop("disabled", true);
+        if ($("#ingress option:selected").text() == "Ambulancia 911") {
+          $.trim($("#code").val()) != ""
+            ? $("#btnSaveAdmission").prop("disabled", false)
+            : $("#btnSaveAdmission").prop("disabled", true);
+        } else if ($("#ingress option:selected").val() != 0) {
+          $("#btnSaveAdmission").prop("disabled", false);
+        } else {
+          $("#btnSaveAdmission").prop("disabled", true);
+        }
       })
       .fail(function (error) {
         console.log(error);
@@ -282,29 +309,57 @@ $(function () {
 
   $("#btnAddPatient").on("click", function (e) {
     e.preventDefault();
-    var data = {
-      expediente: $("#p_exp").val(),
-      num_doc: $("#p_number").val(),
-      tipo_doc: $("#p_ide option:selected").val(),
-      nombre1: $("#p_name1").val(),
-      nombre2: $("#p_name2").val(),
-      apellido1: $("#p_lastname1").val(),
-      apellido2: $("#p_lastname2").val(),
-      genero: $("input:checked").val() == "m" ? 1 : 2,
-      edad: $("#p_age").val(),
-      fecha_nacido: $("#p_date").val(),
-      cod_edad: $("#p_typeage option:selected").val(),
-      telefono: $("#p_phone").val(),
-      //celular:
-      direccion: $("#p_address").val(),
-      //email:
-      asegurado: $("#p_segS").val(),
-      observacion: $("#p_obs").val(),
-      //nss:
-      //usu_sede:
-      //prehospitalario:
-    };
-    console.log(data);
+    $.ajax({
+      url: "bd/admission.php",
+      method: "POST",
+      dataType: "json",
+      data: {
+        option: "insertPatient",
+        patient: {
+          expendiente: $("#p_exp").val(),
+          num_doc: $("#p_number").val(),
+          tipo_doc: $("#p_ide option:selected").val(),
+          nombre1: $("#p_name1").val(),
+          nombre2: $("#p_name2").val(),
+          apellido1: $("#p_lastname1").val(),
+          apellido2: $("#p_lastname2").val(),
+          genero: $("input:checked").val() == "m" ? 1 : 2,
+          edad: $("#p_age").val(),
+          fecha_nacido: $("#p_date").val(),
+          cod_edad: $("#p_typeage option:selected").val(),
+          telefono: $("#p_phone").val(),
+          //celular:
+          direccion: $("#p_address").val(),
+          //email:
+          aseguradro: $("#p_segS").val(),
+          observacion: $("#p_obs").val(),
+          //nss:
+          //usu_sede:
+          //prehospitalario:
+        },
+      },
+    })
+      .done(function (data) {
+        $("#btnAddPatient").prop("hidden", true);
+        $("#idP").val(
+          data[0].id_paciente +
+            "-" +
+            $("#p_name1").val() +
+            " " +
+            $("#p_lastname1").val()
+        );
+        if ($("#ingress option:selected").val() != 0)
+          $("#btnSaveAdmission").prop("disabled", false);
+      })
+      .fail(function () {
+        console.log("error");
+      });
+  });
+
+  $("#code").change(function () {
+    $.trim($(this).val()) != "" && $("#idP").val() != ""
+      ? $("#btnSaveAdmission").prop("disabled", false)
+      : $("#btnSaveAdmission").prop("disabled", true);
   });
 
   //formulario paciente
@@ -390,12 +445,13 @@ $(function () {
 
   $("#p_typeage").on("change", function () {
     if (updatePatient && $("#p_typeage option:selected").val() != 0)
-      crud_ajax("tipo_doc", $("#p_typeage option:selected").val(), "updateP");
+      crud_ajax("cod_edad", $("#p_typeage option:selected").val(), "updateP");
   });
 
   $(".gender").on("click", function () {
     val = $("input:checked").val();
-    if (updatePatient) crud_ajax("genero", (val = "m" ? 1 : 2), "updateP");
+    console.log(val);
+    if (updatePatient) crud_ajax("genero", val == "m" ? 1 : 2, "updateP");
   });
 
   $("#p_phone").on("focusout", function () {
@@ -403,7 +459,12 @@ $(function () {
   });
 
   $("#p_name1").on("focusout", function () {
-    if (updatePatient) crud_ajax("nombre1", $(this).val(), "updateP");
+    if (updatePatient) {
+      crud_ajax("nombre1", $(this).val(), "updateP");
+      $("#idP").val(
+        id_patient + "-" + $(this).val() + " " + $("#p_lastname1").val()
+      );
+    }
   });
 
   $("#p_name2").on("focusout", function () {
@@ -411,7 +472,12 @@ $(function () {
   });
 
   $("#p_lastname1").on("focusout", function () {
-    if (updatePatient) crud_ajax("apellido1", $(this).val(), "updateP");
+    if (updatePatient) {
+      crud_ajax("apellido1", $(this).val(), "updateP");
+      $("#idP").val(
+        id_patient + "-" + $("#p_name1").val() + " " + $(this).val()
+      );
+    }
   });
 
   $("#p_lastname2").on("focusout", function () {

@@ -24,6 +24,61 @@ tbody tr:hover {
   padding: 20px 0;
 }
 
-#form_admission span.fa-stack:hover{
+#form_admission span.fa-stack:hover {
   cursor: pointer;
+}
+
+#tableEmergency td,
+#tableUrgency td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.table .card-body {
+  padding: 0.7rem;
+}
+
+#tableUrgency .bg-blue {
+  background-color: blue;
+}
+
+#tableUrgency .bg-green {
+  background-color: green;
+}
+
+#tableEmergency .bg-red {
+  background-color: red;
+}
+
+#tableEmergency .bg-orange {
+  background-color: orange;
+}
+
+#tableEmergency .bg-yellow {
+  background-color: yellow;
+}
+
+#timer .countdown-wrapper {
+  margin: 0 auto;
+}
+
+#timer #countdown {
+  text-shadow: 1px 1px 5px black;
+}
+
+#timer .countdown-wrapper #countdown .timer {
+  padding: 0 20px;
+  border-radius: 50%;
+  font-size: 20px;
+}
+
+#timer .countdown-wrapper #countdown .countdown-section {
+  float: left;
+  font-size: 70%;
+  text-align: center;
+}
+
+#timer .countdown-wrapper #countdown .countdown-section .countdown-period {
+  color: black;
+  text-shadow: none;
 }
